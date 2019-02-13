@@ -134,7 +134,7 @@ function newTemplate() {
     });
     let field = document.createElement("textarea");
     field.className = "field";
-    field.placeholder = "template name";
+    field.placeholder = "template name (i.e. Platelets)";
     let template = document.createElement("div");
     template.className = "template";
     template.id = "mainTemplate";
@@ -163,7 +163,7 @@ function newType() {
     dropdown.innerHTML = "add dropdown";
     let field = document.createElement("textarea");
     field.className = "field";
-    field.placeholder = "type";
+    field.placeholder = "type (i.e. English)";
     let type = document.createElement("div");
     type.className = "template";
     type.id = id++;
@@ -209,7 +209,7 @@ function newString(parent, name, depth) {
     remove.innerHTML = "x";
     let field = document.createElement("textarea");
     field.className = "field";
-    field.placeholder = "enter text";
+    field.placeholder = "enter text (i.e. Platelets >= )";
     let string = document.createElement("div");
     string.className = "template";
     string.id = id++;
@@ -261,7 +261,7 @@ function newDropdown(parent, name, depth) {
     progression.innerHTML = "add progression";
     let field = document.createElement("textarea");
     field.className = "field";
-    field.placeholder = "name";
+    field.placeholder = "name (i.e. VARIABLE1)";
     let drop = document.createElement("div");
     drop.className = "template";
     drop.id = id++;

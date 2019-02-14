@@ -1,12 +1,22 @@
 let input = document.getElementsByTagName("textarea")[0],
     output = document.getElementById("out");
 
-var level = 0,
+var dropMenu = [{ name: "Create Dropdown", fn: add }],
+    optionMenu = [{ name: "Add Option", fn: option }];
+
+let addDropMenu = new ContextMenu('.content', dropMenu, {
+        className: "context-menu"
+    }),
+    addOptionMenu = new ContextMenu('.drop', optionMenu, {
+        className: "context-menu"
+    });
+
+/* var level = 0,
     inProgression = 0,
     inVariable = 0,
     isFirst = true,
     updating = false,
-    updateString = "";
+    updateString = ""; */
 edits = [],
     undone = [];
 
@@ -18,7 +28,7 @@ let backgroundColor = d3.scaleLinear()
     .range(["rgb(220, 220, 220)", "rgb(24, 24, 24)"])
     .interpolate(d3.interpolateHcl)
 
-function search(id, tree) {
+/* function search(id, tree) {
     let returnVal = null;
     Object.keys(tree).forEach(obj => {
         if (tree[obj].id == id) {
@@ -75,7 +85,7 @@ function replaceStr(tree, id, content) {
     }
 }
 
-function addDrop(tree, id, name) {
+function addDropdown(tree, id, name) {
     if (tree.content != null) {
         var found = false;
         tree.content.forEach(obj => {
@@ -116,6 +126,97 @@ function addProgression(tree, id) {
             content: []
         }];
     }
+} */
+
+function searchOpt(content, i) {
+    let opt = {
+        type: "progression",
+        content: []
+    }
+    let str = content[i++];
+    while (str != "/div") {
+        if (str == 'div contenteditable="false" class="drop" style="background: rgb(176, 176, 176);"') {
+            let ret = searchDropdown(content, i);
+            i = ret[0] - 1;
+            opt.content.push(ret[1]);
+        } else if (str.length > 0 && str != " " && str != "/div") {
+            opt.content.push(str);
+        }
+        str = content[i++];
+    }
+    if (opt.content.length == 1 && typeof opt.content[0] === "string") {
+        return [i, opt.content[0]]
+    } else {
+        return [i, opt];
+    }
+}
+
+function searchDropdown(content, i) {
+    let obj = {
+        type: "dropdown",
+        content: []
+    }
+    let str = content[i++];
+    while (str != "/div") {
+        if (str == 'div class="content" contenteditable="true"') {
+            let ret = searchOpt(content, i);
+            i = ret[0];
+            obj.content.push(ret[1])
+        }
+        str = content[i++];
+    }
+    return [i, obj];
+}
+
+function updateContent(typeName) {
+    let content = document.getElementById(typeName).getElementsByClassName("content")[0].innerHTML.split(/[<>]/);
+    var JSONContent = [];
+    console.log(content)
+    for (var i = 0; i < content.length; i++) {
+        if (content[i] == 'div contenteditable="false" class="drop" style="background: rgb(176, 176, 176);"') {
+            let ret = searchDropdown(content, i);
+            i = ret[0] - 1;
+            JSONContent.push(ret[1]);
+        } else if (content[i].length > 0 && content[i] != " " && content[i] != "/div") {
+            JSONContent.push(content[i]);
+        }
+    }
+    if (formatted[typeName])
+        formatted[typeName].content = JSONContent;
+    updateJSON();
+}
+
+function add(div) {
+    console.log(div.name)
+    let selected = document.getSelection().getRangeAt(0);
+    let info = selected.toString();
+    selected.insertNode(document.createTextNode("\u0001"));
+    selected.collapse(false);
+    selected.insertNode(document.createTextNode("\u0001"));
+    var prevContent = div.innerHTML.split("\u0001");
+    prevContent[1] = addDrop(info);
+    div.innerHTML = prevContent.join("");
+    updateContent(div.closest(".template").id);
+}
+
+function option(div, info) {
+    let opt = document.createElement("div");
+    opt.className = "content";
+    opt.contentEditable = true;
+    opt.innerHTML = info ? info : "";
+    opt.addEventListener("keyup", () => {
+        updateContent(div.closest(".template").id)
+    })
+    div.appendChild(opt);
+}
+
+function addDrop(info, div) {
+    let drop = document.createElement("div")
+    drop.contentEditable = false;
+    drop.className = "drop";
+    drop.style.background = backgroundColor(3);
+    option(drop, info);
+    return drop.outerHTML;
 }
 
 function newTemplate() {
@@ -130,11 +231,11 @@ function newTemplate() {
     addType.className = "create";
     addType.innerHTML = "add type";
     addType.addEventListener("click", () => {
-        newType()
+        newType();
     });
     let field = document.createElement("textarea");
     field.className = "field";
-    field.placeholder = "template name (i.e. Platelets)";
+    field.placeholder = "template name (e.g. WBC)";
     let template = document.createElement("div");
     template.className = "template";
     template.id = "mainTemplate";
@@ -144,7 +245,7 @@ function newTemplate() {
     template.appendChild(field);
     output.appendChild(template);
     field.focus();
-    field.addEventListener("keyup", () => {
+    field.addEventListener("keyup", (key) => {
         formatted.name = field.value;
         updateJSON();
     });
@@ -155,29 +256,29 @@ function newType() {
     let remove = document.createElement("div");
     remove.className = "create";
     remove.innerHTML = "x";
-    let string = document.createElement("div");
-    string.className = "create";
-    string.innerHTML = "add text";
-    let dropdown = document.createElement("div");
-    dropdown.className = "create";
-    dropdown.innerHTML = "add dropdown";
     let field = document.createElement("textarea");
     field.className = "field";
     field.placeholder = "type (i.e. English)";
+    let content = document.createElement("div");
+    content.className = "content";
+    content.innerHTML = ""
+    content.tabIndex = 0;
+    content.contentEditable = true;
+    content.name = depth;
     let type = document.createElement("div");
     type.className = "template";
-    type.id = id++;
+    type.id = field.value;
     type.name = "type";
     type.style.background = backgroundColor(depth);
     type.appendChild(remove);
-    type.appendChild(string);
-    type.appendChild(dropdown);
     type.appendChild(field);
+    type.appendChild(content);
     document.getElementById("mainTemplate").appendChild(type);
     field.focus();
     var prev,
         prevContent = [];
     field.addEventListener("keyup", () => {
+        type.id = field.value;
         if (prev != null) {
             if (prevContent.length > 0) {
                 prevContent = formatted[prev].content;
@@ -185,25 +286,21 @@ function newType() {
             delete formatted[prev];
         }
         formatted[field.value] = {
-            id: type.id,
             content: prevContent
         };
         prev = field.value;
-        updateJSON();
+        updateContent(type.id);
     });
-    string.addEventListener("click", () => {
-        newString(type, field, depth);
-    });
-    dropdown.addEventListener("click", () => {
-        newDropdown(type, field, depth);
-    });
+    content.addEventListener("keyup", () => {
+        updateContent(type.id);
+    })
     remove.addEventListener("click", () => {
         delete search(type.id, formatted);
         type.remove();
     })
 }
 
-function newString(parent, name, depth) {
+/* function newString(parent, name, depth) {
     let remove = document.createElement("div");
     remove.className = "create";
     remove.innerHTML = "x";
@@ -354,7 +451,7 @@ function newProgression(parent, name, depth) {
         progression.remove();
         updateJSON();
     })
-}
+} */
 
 function updateJSON() {
     document.getElementById("json").innerHTML = JSON.stringify(formatted, undefined, 4);

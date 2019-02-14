@@ -23,7 +23,7 @@ textarea {
     background-color: @dark;
     border-radius: @radius;
     color: white;
-    font: @main-font;
+    font-family: @main-font;
     margin: 10px;
     padding: 10px;
     width: fit-content;
@@ -45,7 +45,7 @@ textarea {
     transition: .3s;
     border-radius: @radius;
     color: white;
-    font: @main-font;
+    font-family: @main-font;
     font-weight: 900;
     margin: 10px;
     padding: 10px;
@@ -57,6 +57,19 @@ textarea {
     transition: .3s;
 }
 
+.drop {
+    -webkit-user-select: none;
+    display: inline-block;
+    transition: .3s;
+    border-radius: @radius;
+    color: white;
+    font-family: @main-font;
+    font-weight: 900;
+    margin: 0px 10px;
+    padding: 10px;
+    width: fit-content;
+}
+
 .field {
     display: flex;
     resize: none;
@@ -65,7 +78,7 @@ textarea {
     border-radius: @radius;
     width: fit-content;
     padding: 5px;
-    margin: 5px;
+    margin: 10px;
     height: 16px;
 }
 
@@ -76,11 +89,11 @@ textarea {
     z-index: 1;
     color: white;
     font-weight: 900;
-    font: @main-font;
+    font-family: @main-font;
     /* position: relative;
     right: -110%; */
-    margin: 5px;
-    padding: 0px 4px;
+    margin: 10px;
+    padding: 5px 12px;
     background-color: @red;
     border-radius: 15px;
 }
@@ -88,6 +101,35 @@ textarea {
 .create:hover {
     transition: .3s;
     color: @red;
+}
+
+.content {
+    outline: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+    transition: .3s;
+    border-radius: @radius;
+    background-color: white;
+    color: black;
+    font-family: @main-font;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px;
+    padding: 10px;
+    width: fit-content;
+}
+
+.selected {
+    color: white;
+    background-color: @red;
+    transition: .3s;
+}
+
+.context-menu {
+    border-radius: @radius;
+    font-family: @main-font;
+    color: black;
+    background-color: gainsboro;
 }
 
 .material-icons {

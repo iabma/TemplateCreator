@@ -14,7 +14,7 @@ textarea {
   background-color: #414141;
   border-radius: 5px;
   color: white;
-  font: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 10px;
   padding: 10px;
   width: fit-content;
@@ -33,7 +33,7 @@ textarea {
   transition: .3s;
   border-radius: 5px;
   color: white;
-  font: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
   margin: 10px;
   padding: 10px;
@@ -43,6 +43,18 @@ textarea {
   color: #e47169;
   transition: .3s;
 }
+.drop {
+  -webkit-user-select: none;
+  display: inline-block;
+  transition: .3s;
+  border-radius: 5px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  margin: 0px 10px;
+  padding: 10px;
+  width: fit-content;
+}
 .field {
   display: flex;
   resize: none;
@@ -51,7 +63,7 @@ textarea {
   border-radius: 5px;
   width: fit-content;
   padding: 5px;
-  margin: 5px;
+  margin: 10px;
   height: 16px;
 }
 .create {
@@ -61,17 +73,43 @@ textarea {
   z-index: 1;
   color: white;
   font-weight: 900;
-  font: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
   /* position: relative;
     right: -110%; */
-  margin: 5px;
-  padding: 0px 4px;
+  margin: 10px;
+  padding: 5px 12px;
   background-color: #e47169;
   border-radius: 15px;
 }
 .create:hover {
   transition: .3s;
   color: #e47169;
+}
+.content {
+  outline: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+  transition: .3s;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 10px;
+  padding: 10px;
+  width: fit-content;
+}
+.selected {
+  color: white;
+  background-color: #e47169;
+  transition: .3s;
+}
+.context-menu {
+  border-radius: 5px;
+  font-family: "Roboto", sans-serif;
+  color: black;
+  background-color: gainsboro;
 }
 .material-icons {
   font-family: 'Material Icons';

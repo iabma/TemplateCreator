@@ -1,14 +1,13 @@
 @background-color: rgb(236, 236, 236);
 @dark: rgb(65, 65, 65);
 @red: #e47169;
-@main-font: "Roboto", sans-serif;
+@main-font: "Roboto",
+sans-serif;
 @radius: 5px;
-
 body {
     background-color: @background-color;
     font-family: 'Roboto';
-    font-size: 16px;
-    //-webkit-user-select: none;
+    font-size: 16px; //-webkit-user-select: none;
     padding: 0px;
     margin: 0px;
 }
@@ -17,7 +16,8 @@ textarea {
     -webkit-text-stroke-width: 0px;
 }
 
-#template {
+.start {
+    -webkit-user-select: none;
     display: inline-block;
     transition: .3s;
     background-color: @dark;
@@ -29,14 +29,37 @@ textarea {
     width: fit-content;
 }
 
-#template:hover {
+.start:hover {
     background-color: @red;
     transition: .3s;
+}
+
+#import {
+    background-color: gainsboro;
+    color: black;
+}
+
+#import-container:hover {
+    background-color: @dark;
+    #import {
+        background-color: @red;
+        color: white;
+        transition: .3s;
+    }
 }
 
 #json {
     display: inline-block;
     font-size: 14px;
+    color: black;
+}
+
+#out {
+    white-space: pre-wrap;
+    width: fit-content;
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 5px;
 }
 
 .template {
@@ -55,6 +78,9 @@ textarea {
 .template:hover {
     color: @red;
     transition: .3s;
+    .field {
+        color: black;
+    }
 }
 
 .drop {
@@ -65,21 +91,27 @@ textarea {
     color: white;
     font-family: @main-font;
     font-weight: 900;
-    margin: 0px 10px;
-    padding: 10px;
+    margin: 5px;
+    padding: 5px 0px;
     width: fit-content;
 }
 
 .field {
+    -webkit-user-select: text;
+    font-weight: 400;
+    font-family: @main-font;
+    font-size: 14px;
     display: flex;
     resize: none;
     outline: none;
     border: none;
     border-radius: @radius;
-    width: fit-content;
+    width: 200px;
     padding: 5px;
     margin: 10px;
     height: 16px;
+    background-color: white;
+    color: black;
 }
 
 .create {
@@ -105,18 +137,28 @@ textarea {
 
 .content {
     outline: none;
-    -webkit-user-select: none;
+    -webkit-user-select: text;
     overflow: hidden;
     transition: .3s;
     border-radius: @radius;
-    background-color: white;
     color: black;
     font-family: @main-font;
     font-size: 14px;
     font-weight: 500;
-    margin: 10px;
-    padding: 10px;
+    margin: 5px;
+    //border: 1px solid gray;
+}
+
+.span {
+    display: inline-block;
+    vertical-align: middle;
     width: fit-content;
+    outline: none;
+    top: 50%;
+    padding: 5px;
+    margin-top: auto;
+    background-color: white;
+    border-radius: @radius;
 }
 
 .selected {
@@ -136,7 +178,8 @@ textarea {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
+    font-size: 24px;
+    /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -144,15 +187,12 @@ textarea {
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-  
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility;
-  
     /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale;
-  
     /* Support for IE. */
     font-feature-settings: 'liga';
-  }
+}

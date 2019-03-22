@@ -14,7 +14,11 @@
 
 <body>
     <style>::-webkit-scrollbar{display: none;}</style>
-    <div id="template" onclick="newTemplate()">new template</div>
+    <div id="file-content"></div>
+    <div id="import-container" class="start">
+        <input type="file" id="import" class="start">import template</input>
+    </div>
+    <div id="template" class="start" onclick="newTemplate()">new template</div>
     <!-- <button onclick="template()" id="template">new template</button>
     <button onclick="newType()" id="type">new type</button>
     <button onclick="progression()" id="progression">new progression</button>
@@ -25,7 +29,7 @@
     <button onclick="undo()" id="undo">undo</button>
     <button onclick="redo()" id="redo">redo</button>
     <textarea type="text" style="width:300px;height: 16px;" placeholder="content"></textarea> -->
-    <div id="out" style="white-space:pre-wrap;width:fit-content;display:block;font-family:'Courier New', Courier, monospace;border-radius:5px;"></div>
+    <div id="out"></div>
     <pre id="json"></pre>
     <script src="context-menu.js"></script>
     <script src="formatter.js"></script>

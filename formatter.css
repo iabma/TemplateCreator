@@ -8,7 +8,8 @@ body {
 textarea {
   -webkit-text-stroke-width: 0px;
 }
-#template {
+.start {
+  -webkit-user-select: none;
   display: inline-block;
   transition: .3s;
   background-color: #414141;
@@ -19,13 +20,33 @@ textarea {
   padding: 10px;
   width: fit-content;
 }
-#template:hover {
+.start:hover {
   background-color: #e47169;
+  transition: .3s;
+}
+#import {
+  background-color: gainsboro;
+  color: black;
+}
+#import-container:hover {
+  background-color: #414141;
+}
+#import-container:hover #import {
+  background-color: #e47169;
+  color: white;
   transition: .3s;
 }
 #json {
   display: inline-block;
   font-size: 14px;
+  color: black;
+}
+#out {
+  white-space: pre-wrap;
+  width: fit-content;
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: 5px;
 }
 .template {
   -webkit-user-select: none;
@@ -43,6 +64,9 @@ textarea {
   color: #e47169;
   transition: .3s;
 }
+.template:hover .field {
+  color: black;
+}
 .drop {
   -webkit-user-select: none;
   display: inline-block;
@@ -51,20 +75,26 @@ textarea {
   color: white;
   font-family: "Roboto", sans-serif;
   font-weight: 900;
-  margin: 0px 10px;
-  padding: 10px;
+  margin: 5px;
+  padding: 5px 0px;
   width: fit-content;
 }
 .field {
+  -webkit-user-select: text;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
   display: flex;
   resize: none;
   outline: none;
   border: none;
   border-radius: 5px;
-  width: fit-content;
+  width: 200px;
   padding: 5px;
   margin: 10px;
   height: 16px;
+  background-color: white;
+  color: black;
 }
 .create {
   display: inline;
@@ -87,18 +117,26 @@ textarea {
 }
 .content {
   outline: none;
-  -webkit-user-select: none;
+  -webkit-user-select: text;
   overflow: hidden;
   transition: .3s;
   border-radius: 5px;
-  background-color: white;
   color: black;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 500;
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+}
+.span {
+  display: inline-block;
+  vertical-align: middle;
   width: fit-content;
+  outline: none;
+  top: 50%;
+  padding: 5px;
+  margin-top: auto;
+  background-color: white;
+  border-radius: 5px;
 }
 .selected {
   color: white;

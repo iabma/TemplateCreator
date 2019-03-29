@@ -14,17 +14,17 @@
 </head>
 
 <body>
-    <div class="title-bar">
+    <div class="title-bar" style="position:absolute;">
         <object id="close" class="bar-button" data="close.svg" type="image/svg+xml"></object>
         <object id="minimize" class="bar-button" data="minimize.svg" type="image/svg+xml"></object>
         <object id="expand" class="bar-button" data="expand.svg" type="image/svg+xml"></object>
     </div>
 
     <style>::-webkit-scrollbar{display: none;}</style>
-    <div id="import-container" class="start">
+    <div id="import-container" class="start" style="margin-top:43px;">
         <input type="file" id="import" class="start">import template</input>
     </div>
-    <div id="template" class="start" onclick="newTemplate()">new template</div>
+    <div id="template" class="start" style="margin-top:43px;" onclick="newTemplate()">new template</div>
     <!-- <button onclick="template()" id="template">new template</button>
     <button onclick="newType()" id="type">new type</button>
     <button onclick="progression()" id="progression">new progression</button>

@@ -394,6 +394,8 @@ function newType(text) {
         updateContent(type.id);
     })
     remove.addEventListener("click", () => {
+        name = cleanUpSpanText(field);
+        console.log(name, formatted[name])
         delete formatted[name];
         updateJSON();
         type.remove();
